@@ -1,0 +1,21 @@
+/************Navbar***************/
+:root{
+  --primary-white: #fff;
+  --primary-width: 95%;
+}
+.logo{
+  margin-left: 20px;
+}
+nav{
+  background-color: #0ca635;
+  font-size: 26px;
+}
+.navbar-nav > li > a{
+  color : var(--primary-white) !important;
+}
+.logo{
+  color : var(--primary-white) !important;
+}
+.mgin{
+  margin-top: 20px;
+}
