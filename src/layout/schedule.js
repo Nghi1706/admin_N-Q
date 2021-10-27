@@ -1,21 +1,13 @@
-import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap/dist/js/bootstrap.min.js'
-import { useDispatch, useSelector } from 'react-redux'
-import * as actions from '../redux/actions';
-import { scheduleState$ } from '../redux/selectors';
-import nodemailer from 'nodemailer';
-import moment from 'moment'
+import React from "react"
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/js/bootstrap.min.js"
+import { useDispatch, useSelector } from "react-redux"
+import * as actions from "../redux/actions";
+import { scheduleState$ } from "../redux/selectors";
+import moment from "moment"
 export default function Costs() {
     const dispatch = useDispatch();
     const Schedules = useSelector(scheduleState$);
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'nguyenvannghi17062000@gmail.com',
-            pass: 'nguyenvannghi17062000' // naturally, replace both with your real credentials or an application-specific password
-        }
-    });
     React.useEffect(() => {
         dispatch(actions.fetchSchedule.fetchScheduleRequest());
     }, [dispatch]);
@@ -26,26 +18,33 @@ export default function Costs() {
             status: "came",
         }
         dispatch(actions.updateSchedule.updateScheduleRequest(schedule, { status: schedule.status }))
-        alert('came')
+        alert("came")
         window.location.reload();
 
     }
-    const sendmail = () => {
-        const mail = window.event.srcElement.value;
-        const mailOptions = {
-            from: 'nguyenvannghi170620000@gmail.com',
-            to: 'nguyenvantri23052009@gmail.com',
-            subject: '[Lịch khám] tại [Nha khoa NQ]',
-            text: 'Nha khoa NQ rất vui khi được đón tiếp anh/chị trong thời gian sắp tới. Trân trọng!'
-        }
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error);
-            } else {
-                alert('gửi mail thành công')
-            }
-        });
+    const smail = async () => {
+        const mail = {
+            mail:
+                window.event.srcElement.value
+        };
 
+        const response = await fetch("https://nqguimail.herokuapp.com/sendmail", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({ mail }),
+        }).then((res) => res.json())
+            .then(async (res) => {
+                const resData = await res;
+                console.log(resData);
+                if (resData.status === "success") {
+                    alert("Mail đã gửi");
+                } else if (resData.status === "fail") {
+                    alert("Gửi mail không thành công !");
+                }
+            })
+        console.log(mail)
     }
     return (
 
@@ -68,14 +67,14 @@ export default function Costs() {
                             {Schedules.map((val, key) => {
                                 return (
                                     <tr>
-                                        <td id={val._id + '_name'} style={{ float: 'left' }} value={val.name}>{val.name}</td>
+                                        <td id={val._id + "_name"} style={{ float: "left" }} value={val.name}>{val.name}</td>
                                         <td>0{val.phone}</td>
-                                        <td id={val._id + '_mail'} value={val.mail}>{val.mail}</td>
-                                        <td id={val._id + '_date'} value={moment(val.date).format('DD-MM-YYYY')}>{moment(val.date).format('DD-MM-YYYY')}</td>
+                                        <td id={val._id + "_mail"} value={val.mail}>{val.mail}</td>
+                                        <td id={val._id + "_date"} value={moment(val.date).format("DD-MM-YYYY")}>{moment(val.date).format("DD-MM-YYYY")}</td>
                                         <td>{val.status}</td>
                                         <td>
-                                            <button type="button" style={{ width: '95px', border: 'none', backgroundColor: 'white', color: 'green' }} value={val.mail} onClick={sendmail}>Send_mail</button>
-                                            <button type="button" style={{ width: '70px', border: 'none', backgroundColor: 'white', color: 'red' }} value={val._id} onClick={came}>came</button>
+                                            <button type="button" style={{ width: "95px", border: "none", backgroundColor: "white", color: "green" }} value={val.mail} onClick={smail}>Send_mail</button>
+                                            <button type="button" style={{ width: "70px", border: "none", backgroundColor: "white", color: "red" }} value={val._id} onClick={came}>came</button>
                                         </td>
                                     </tr>
                                 )
