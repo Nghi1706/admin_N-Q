@@ -1,7 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { useHistory } from 'react-router-dom';
 const Navbar = () => {
+    let history = useHistory();
+    const logout = () => {
+        localStorage.removeItem("accessToken")
+        history.replace('/')
+    }
     return (
         <nav className="navbar navbar-expand-lg navbar-light color">
             <div className="container-fluid">
@@ -13,7 +19,7 @@ const Navbar = () => {
                     <ul className="navbar-nav">
 
                         <li className="nav-item active">
-                            <Link className="nav-link" to="/trangchu">Trang chủ</Link>
+                            <Link className="nav-link" to="/">Trang chủ</Link>
                         </li>
                         <li className="nav-item active">
                             <Link className="nav-link" to="/banggia">Bảng giá</Link>
@@ -23,6 +29,7 @@ const Navbar = () => {
                         </li>
                     </ul>
                 </div>
+                <button onClick={logout}>logout</button>
             </div>
         </nav>
     )
