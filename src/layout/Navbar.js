@@ -29,7 +29,7 @@ const Navbar = () => {
                         </li>
                     </ul>
                 </div>
-                <button onClick={logout}>logout</button>
+                <button style={{ backgroundColor: "#1ed94d", border: "none", borderRadius: "15px" }} onClick={logout}><i class="fas fa-sign-out-alt" style={{ backgroundColor: "#1ed94d" }}></i></button>
             </div>
         </nav>
     )

@@ -8,7 +8,7 @@ const Login = () => {
     const [pass, password] = useState("");
     let history = useHistory();
     const log = () => {
-        if (user == "adminNQ1804" && pass == "123") {
+        if (user === "adminNQ1804" && pass === "123") {
             localStorage.setItem("accessToken", true)
             history.replace('/')
         }
