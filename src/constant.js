@@ -6,5 +6,9 @@ export const INIT_STATE = {
     schedule: {
         isLoading: false,
         data: [],
+    },
+    info: {
+        isLoading: false,
+        data: [],
     }
 }

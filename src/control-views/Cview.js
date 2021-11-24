@@ -3,6 +3,7 @@ import Banggia from '../site/banggia'
 import Lienhe from '../site/lichkham'
 import Trangchu from '../site/trangchu'
 import Login from '../site/Login'
+import Dieuchinh from '../site/Dieuchinh'
 const Cview = ({ authRoute }) => {
     return (
         <>
@@ -14,6 +15,9 @@ const Cview = ({ authRoute }) => {
             }
             {
                 authRoute === 'login' && <Login />
+            }
+            {
+                authRoute === 'dieuchinh' && <Dieuchinh />
             }
         </>
     )

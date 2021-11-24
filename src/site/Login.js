@@ -2,9 +2,11 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import { infoState$, scheduleState$ } from '../redux/selectors';
+import * as actions from '../redux/actions';
 const Login = () => {
     const [user, username] = useState("");
-
     const [pass, password] = useState("");
     let history = useHistory();
     const log = () => {
@@ -17,8 +19,20 @@ const Login = () => {
         }
 
     }
+    const dispatch = useDispatch();
+    const info = useSelector(infoState$);
+    React.useEffect(() => {
+        dispatch(actions.fetchInfo.fetchInfoRequest());
+    }, [dispatch]);
+    console.log(info.map((val, key) => {
+        return (
+            val.username
+        )
+    })
+    )
     return (
         <>
+
             <div className='container-fluid'>
                 <div className='row mt-5'>
                     <div className="col-lg-4 col-md-4 col-xl-4"></div>

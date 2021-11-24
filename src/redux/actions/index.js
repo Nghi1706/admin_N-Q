@@ -8,6 +8,11 @@ export const getPosts = createActions({
     getPostsSuccess: (payload) => payload,
     getPostsFailure: (err) => err,
 });
+export const fetchInfo = createActions({
+    fetchInfoRequest: undefined,
+    fetchInfoSuccess: (payload) => payload,
+    fetchInfoFailure: (err) => err,
+});
 export const fetchSchedule = createActions({
     fetchScheduleRequest: undefined,
     fetchScheduleSuccess: (payload) => payload,

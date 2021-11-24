@@ -60,6 +60,15 @@ function* fetchSchedule(action) {
         yield put(actions.fetchSchedule.fetchScheduleFailure(err));
     }
 }
+function* fetchInfo(action) {
+    try {
+        const f_info = yield call(api.fetchInfo);
+        yield put(actions.fetchInfo.fetchInfoSuccess(f_info.data));
+    } catch (err) {
+        console.error(err);
+        yield put(actions.fetchInfo.fetchInfoFailure(err));
+    }
+}
 function* updateSchedule(action) {
     try {
         const updated_schedule = yield call(api.updateSchedule, action.payload);
@@ -76,6 +85,7 @@ function* mySaga() {
     yield takeLatest(actions.updateCost.updateCostRequest, updateCost);
     yield takeLatest(actions.deleteCost.deleteCostRequest, deleteCost);
     yield takeLatest(actions.fetchSchedule.fetchScheduleRequest, fetchSchedule);
+    yield takeLatest(actions.fetchInfo.fetchInfoRequest, fetchInfo);
     yield takeLatest(actions.updateSchedule.updateScheduleRequest, updateSchedule);
 }
 export default mySaga;

@@ -27,6 +27,9 @@ const Navbar = () => {
                         <li className="nav-item active">
                             <Link className="nav-link" to="/lichkham">Lịch khám</Link>
                         </li>
+                        <li className="nav-item active">
+                            <Link className="nav-link" to="/dieuchinh">Điều chỉnh</Link>
+                        </li>
                     </ul>
                 </div>
                 <button style={{ backgroundColor: "#1ed94d", border: "none", borderRadius: "15px" }} onClick={logout}><i class="fas fa-sign-out-alt" style={{ backgroundColor: "#1ed94d" }}></i></button>

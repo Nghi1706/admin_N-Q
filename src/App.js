@@ -3,6 +3,7 @@ import React from 'react';
 import Trangchu from './site/trangchu';
 import Banggia from './site/banggia';
 import Lichkham from './site/lichkham';
+import Dieuchinh from './site/Dieuchinh';
 import Cview from './control-views/Cview';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -20,6 +21,9 @@ function App() {
           }} />
           <Route exact path='/lichkham' render={() => {
             return localStorage.getItem("accessToken") ? <Lichkham /> : <Redirect to="/login" />
+          }} />
+          <Route exact path='/dieuchinh' render={() => {
+            return localStorage.getItem("accessToken") ? <Dieuchinh /> : <Redirect to="/login" />
           }} />
           <Route exact path='/login' render={prop => <Cview {...prop} authRoute='login' />} />
         </Switch>
